@@ -10,18 +10,27 @@ messageRouter.get('/api/secretmessage', [], async (req: Request, res: Response) 
         return res.status(404).send('Message is not found')
     }
     else {
-        return res.status(200).send(decodeMessage(secretmessage.message))
+        return res.status(200).send(decodeMessage(secretmessage.get('message', String)))
     }
 })
 
 messageRouter.post('/api/secretmessage', async (req: Request, res: Response) => {
     const { password, message } = req.body
-
-    const secretmessage = SecretMessages.build({
-        message: encodeMessage(message),
-        password: encodePassword(password),
-        _id: getUID(message)
-    })
-    await secretmessage.save()
-    return res.status(201).send(secretmessage._id.toString())
+    try {
+        /*const secretmessage =  SecretMessages.build({
+            message: encodeMessage(message),
+            password: encodePassword(password),
+            _id: getUID(message)
+        })*/
+        const secretmessage = new SecretMessages({
+            message: encodeMessage(message),
+            password: encodePassword(password),
+            _id: getUID(message)
+        })
+        await secretmessage.save()
+        return res.status(201).send(secretmessage._id.toString())
+    }
+    catch (e) {
+        console.log(e)
+    }
 })
