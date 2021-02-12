@@ -1,9 +1,12 @@
-import express, { Request, Response } from 'express'
-import { SecretMessages } from '../models/secretMessageModel'
-import { encodeMessage, encodePassword, getUID, decodeMessage } from '../services/cipherService'
-export const messageRouter = express.Router()
+import express from 'express'
+import { getMessage } from '../controllers/getMessage'
+import { postMessage } from '../controllers/postMessage'
 
-messageRouter.get('/api/secretmessage', [], async (req: Request, res: Response) => {
+export const messageRouter = express.Router()
+messageRouter.get('/api/secretmessage', getMessage)
+messageRouter.post('/api/secretmessage', postMessage)
+
+/*messageRouter.get('/api/secretmessage', [], async (req: Request, res: Response) => {
     const { password, uid } = req.body
     const secretmessage = await SecretMessages.findOne({ _id: uid, password: encodePassword(password) })
     if (secretmessage == null) {
@@ -17,11 +20,6 @@ messageRouter.get('/api/secretmessage', [], async (req: Request, res: Response) 
 messageRouter.post('/api/secretmessage', async (req: Request, res: Response) => {
     const { password, message } = req.body
     try {
-        /*const secretmessage =  SecretMessages.build({
-            message: encodeMessage(message),
-            password: encodePassword(password),
-            _id: getUID(message)
-        })*/
         const secretmessage = new SecretMessages({
             message: encodeMessage(message),
             password: encodePassword(password),
@@ -33,4 +31,4 @@ messageRouter.post('/api/secretmessage', async (req: Request, res: Response) => 
     catch (e) {
         console.log(e)
     }
-})
+})*/

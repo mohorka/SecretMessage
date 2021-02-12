@@ -18,7 +18,9 @@ export const encodePassword = (password: string): string => {
 }
 
 export const getUID = (message: string) => {
-    const saltStr = Math.random().toString(36).substr(2, 5)
+    const generatedStr = Math.random().toString(36).substr(2, 5)
+    const n = Math.floor(Math.random() * (10 - 1)) + 1
+    const saltStr = MD5(generatedStr).toString().substr(0, n)
     return MD5(message.concat(saltStr)).toString().substr(0, 6)
 
 }
