@@ -24,11 +24,19 @@ mongoose.connect(DB_PATH, {
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true
-}, () => {
+}, (err) => {
+    if (err) throw err
     console.log('connected to db')
 })
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
     console.log('Server listening on the port::${port}')
 
+})
+
+process.on('SIGINT', () => {
+    console.log('Closing server')
+    server.close(() => {
+        console.log('server closed')
+    })
 })
