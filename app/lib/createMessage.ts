@@ -1,7 +1,8 @@
-import {SecretMessages} from '../models/secretMessageModel'
+import { SecretMessages } from '../models/secretMesssageModel'
 import { encodeMessage, encodePassword, getUID } from '../utils/cipher'
+import type { NextApiRequest, NextApiResponse } from 'next'
 
-export const postMessage = (req, res) => {
+export const postMessage = (req: NextApiRequest, res: NextApiResponse) => {
     const { password, message } = req.body
     const secretmessage = new SecretMessages({
         message: encodeMessage(message),
