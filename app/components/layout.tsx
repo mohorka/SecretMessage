@@ -4,11 +4,11 @@ import styles from './layout.module.css'
 import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
 
-const name = 'Your Name'
+
 export const siteTitle = 'Secret Message'
 
-export default function Layout({ 
-  children, 
+export default function Layout({
+  children,
   home }: {
     children: React.ReactNode
     home?: boolean
@@ -19,7 +19,7 @@ export default function Layout({
         <link rel="icon" href="/favicon.ico" />
         <meta
           name="description"
-          content="Learn how to build a personal website using Next.js"
+          content="Small tool to encrypt messages"
         />
         <meta
           property="og:image"
@@ -33,37 +33,20 @@ export default function Layout({
       <header className={styles.header}>
         {home ? (
           <>
-            <Image
-              priority
-              src="/images/image.jpg"
-              className={utilStyles.borderCircle}
-              height={144}
-              width={144}
-              alt={name}
-            />
-            <h1 className={utilStyles.heading2Xl}>{name}</h1>
+            <h1 className={utilStyles.heading2Xl}>Welcome page</h1>
           </>
         ) : (
-          <>
-            <Link href="/">
-              <a>
-                <Image
-                  priority
-                  src="/images/image.jpg"
-                  className={utilStyles.borderCircle}
-                  height={108}
-                  width={108}
-                  alt={name}
-                />
-              </a>
-            </Link>
-            <h2 className={utilStyles.headingLg}>
+            <>
               <Link href="/">
-                <a className={utilStyles.colorInherit}>{name}</a>
+                <a>here</a>
               </Link>
-            </h2>
-          </>
-        )}
+              <h2 className={utilStyles.headingLg}>
+                <Link href="/">
+                  <a className={utilStyles.colorInherit}>name</a>
+                </Link>
+              </h2>
+            </>
+          )}
       </header>
       <main>{children}</main>
       {!home && (
@@ -75,5 +58,4 @@ export default function Layout({
       )}
     </div>
   )
-}    
-    
+}
